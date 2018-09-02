@@ -19,47 +19,109 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Stardust Platform! You can use our libraries to easily create ERC-721 assets and utilize them within your game.
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+# Creating your Game
 
-> To authorize, use this code:
+> To create your game, use this code:
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+none yet
 ```
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
+none yet
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+none yet
 ```
 
 ```javascript
-const kittn = require('kittn');
 
-let api = kittn.authorize('meowmeowmeow');
+'use strict';
+const request = require('request');
+const Web3 = require('web3');
+const web3 = new Web3();
+
+const{'utils': {soliditySha3}, 'eth': {abi, accounts}} = web3;
+
+const hashParam = (value, type) => soliditySha3(abi.encodeParameter(type, value));
+const hashParams = (values, types) => values.map((value, index) => hashParam(value, types[index]));
+
+const hashGame = (gameData) => {
+    const{name, symbol, desc, image, owner, nonce} = gameData;
+    const hashes = hashParams([name, symbol, desc, image, owner, nonce], ['string', 'string', 'string', 'string', 'address', 'uint256']);
+    return(hashParam(hashes, 'bytes32[]'));
+};
+
+const hashCard = ({name, desc, image, rarity, cap, gameAddr, nonce}) => {
+    const hashes = hashParams([name, desc, image, cap, rarity, gameAddr, nonce], ['string', 'string', 'string', 'uint256', 'uint256', 'address', 'uint256']);
+    return(hashParam(hashes, 'bytes32[]'));
+};
+
+const hashAndSignGame = (gameData, privKey) => {
+    const sig = accounts.sign(hashGame(gameData), privKey);
+    return({'signedMessage': sig.signature + sig.message.slice(2)});
+};
+
+const hashAndSignCard = (cardData, privKey) => {
+    const sig = accounts.sign(hashCard(cardData), privKey);
+    return({'signedMessage': sig.signature + sig.message.slice(2)});
+};
+
+const createGamePostJSON = (gameData, privKey) => ({...gameData, ...hashAndSignGame(gameData, privKey)});
+const createCardPostJSON = (cardData, privKey) => ({...cardData, ...hashAndSignCard(cardData, privKey)});
+
+const _game = {
+    'desc': '',
+    'image': '',
+    'name': '',
+    'nonce': 0,
+    'owner': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
+    'symbol': ''
+};
+
+const _card = {
+    'cap': 0,
+    'desc': '',
+    'gameAddr': '',
+    'image': '',
+    'name': '',
+    'nonce': 1,
+    'rarity': 1
+};
+
+const _privateKey = '0x7023ae66f4de385e8f9f01ee94456a7fd7fd3db70fdc51cea26833fa4a08ca55';
+
+
+const ip = '';
+const port = 3000;
+const baseURL = 'games';
+
+const sendGame = (game, privateKey) => {
+    request.post(
+        `${ip}:${port}/${baseURL}/deploy`,
+        {'json': createGamePostJSON(game, privateKey)},
+        (error, response, body) => { if(!error && response.statusCode == 200) { console.log(error, response, body); } }
+    );
+};
+
+const sendCard = (card, gameId, privateKey) => {
+    request.post(
+        `${ip}:${port}/${baseURL}/${gameId}/mint`,
+        {'json': createCardPostJSON(card, privateKey)},
+        (error, response, body) => { if(!error && response.statusCode == 200) { console.log(error, response, body); } }
+    );
+};
+
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+this is a test description for the code on the right
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
