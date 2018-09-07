@@ -27,17 +27,43 @@ This example API documentation page was created with [Slate](https://github.com/
 
 # Creating your Game
 
+router.post('/deploy', gameController.deploy);
+router.get('/', gameController.getAll);
+router.get('/:gameId', gameController.getDetails);
+router.get('/:gameId/balance/:userAddr', gameController.getBalanceOf);
+
+
 ## Create Your Game
 
-data here
+### HTTP Request
+
+`POST http://example.com/deploy`
+
+### Query Parameters
+
+ * Needed req.body: name, symbol, desc, image, owner, nonce, signedMessage
+
+Parameter | Default | Description | Example
+--------- | ------- | ----------- | -------
+name | false | Name of your game | CryptoKitties
+symbol | true | Shorty symbol of your game | Kitty
+desc | true | Description of your game | Buy and sell crypto cats
+image | true | Image of your game | example image
+owner | true | Owner address | 0x2342323423223
+nonce | true | a | b
+signedMessage | true | a | b
 
 ## Retrieve All Game Data
 
-data here
+### HTTP Request
+
+`POST http://example.com/games`
 
 ## Retrieve Specific Game Data
 
-data here
+### HTTP Request
+
+`POST http://example.com/:gameId`
 
 
 # Kittens
