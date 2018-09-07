@@ -127,6 +127,14 @@ this is a test description for the code on the right
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
+## Awooga Kittens
+
+chicken nuggetss
+
+<aside class="notice">
+You must replace <code>asd</code> awooooga
+</aside>
+
 # Kittens
 
 ## Get All Kittens
