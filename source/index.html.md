@@ -25,19 +25,27 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
+# Hashing
+
+```javascript
+'use strict';
+const request = require('request');
+const Web3 = require('web3');
+const web3 = new Web3();
+
+const hashCard = (data, types) => {
+    const hashes = hashParams(data, types);
+    return(hashParam(hashes, 'bytes32[]'));
+};
+```
+
 # Creating your Game
-
-router.post('/deploy', gameController.deploy);
-router.get('/', gameController.getAll);
-router.get('/:gameId', gameController.getDetails);
-router.get('/:gameId/balance/:userAddr', gameController.getBalanceOf);
-
 
 ## Create Your Game
 
 ### HTTP Request
 
-`POST http://example.com/deploy`
+`POST http://example.com/games/deploy`
 
 ### Query Parameters
 
@@ -57,13 +65,92 @@ signedMessage | true | a | b
 
 ### HTTP Request
 
-`POST http://example.com/games`
+`GET http://example.com/games`
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "games":[
+      {
+         "desc":"game_desc",
+         "gameContractAddress":"0x...",
+         "gameId":0,
+         "gameOwner":"0x...",
+         "image":"image_link",
+         "name":"game_name",
+         "rarityNames":[
+            "Common",
+            "Rare",
+            "Super Rare",
+            "Limited Edition",
+            "Unique"
+         ],
+         "rarityPercs":[
+            80,
+            15,
+            4,
+            0.85,
+            0.15
+         ],
+         "symbol":"game_symbol",
+         "totalSupply":"0"
+      },
+      {
+         "desc":"...",
+         "gameContractAddress":"0x...",
+         "gameId":1,
+         "gameOwner":"0x...",
+         "image":"...",
+         "name":"Overwatch",
+         "rarityNames":[
+            "Common",
+            "Rare",
+            "Super Rare",
+            "Limited Edition",
+            "Unique"
+         ],
+         "rarityPercs":[
+            80,
+            15,
+            4,
+            0.85,
+            0.15
+         ],
+         "symbol":"OW",
+         "totalSupply":"0"
+      }
+   ],
+   "message":"All currently deployed games"
+}
+```
 
 ## Retrieve Specific Game Data
 
 ### HTTP Request
 
-`POST http://example.com/:gameId`
+`GET http://example.com/games/:gameId`
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Fluffums",
+    "breed": "calico",
+    "fluffiness": 6,
+    "cuteness": 7
+  },
+  {
+    "id": 2,
+    "name": "Max",
+    "breed": "unknown",
+    "fluffiness": 5,
+    "cuteness": 10
+  }
+]
+```
 
 
 # Kittens
