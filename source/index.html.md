@@ -47,6 +47,32 @@ const hashCard = (data, types) => {
 
 `POST http://example.com/games/deploy`
 
+```python
+from stardust.wallet.client import Client
+client = Client(private_key)
+
+my_game_data = {
+    'name': 'CryptoKitties'
+    'desc': 'Trading cats on the blockchain',
+    'image': '',
+    'nonce': 0,
+    'owner': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
+    'symbol': 'CAT'
+};
+
+signed_game_hash = client.hashAndSignGame(my_game_data)
+
+game_data = client.get_games()
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "message": "Game Created"
+}
+```
+
 ### Query Parameters
 
  * Needed req.body: name, symbol, desc, image, owner, nonce, signedMessage
@@ -66,6 +92,20 @@ signedMessage | true | a | b
 ### HTTP Request
 
 `GET http://example.com/games`
+
+```ruby
+require 'stardust/wallet'
+client = Stardust::Wallet::Client.new(priv_key: private_key)
+
+game_data = client.games
+```
+
+```python
+from stardust.wallet.client import Client
+client = Client(private_key)
+
+game_data = client.get_games()
+```
 
 > The above command returns JSON structured like this:
 
@@ -96,30 +136,6 @@ signedMessage | true | a | b
          "symbol":"game_symbol",
          "totalSupply":"0"
       },
-      {
-         "desc":"...",
-         "gameContractAddress":"0x...",
-         "gameId":1,
-         "gameOwner":"0x...",
-         "image":"...",
-         "name":"Overwatch",
-         "rarityNames":[
-            "Common",
-            "Rare",
-            "Super Rare",
-            "Limited Edition",
-            "Unique"
-         ],
-         "rarityPercs":[
-            80,
-            15,
-            4,
-            0.85,
-            0.15
-         ],
-         "symbol":"OW",
-         "totalSupply":"0"
-      }
    ],
    "message":"All currently deployed games"
 }
