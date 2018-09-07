@@ -49,6 +49,7 @@ const hashCard = (data, types) => {
 
 ```python
 from stardust.wallet.client import Client
+
 client = Client(private_key)
 
 my_game_data = {
@@ -62,7 +63,7 @@ my_game_data = {
 
 signed_game_hash = client.hashAndSignGame(my_game_data)
 
-game_data = client.get_games()
+create_game_response = client.createGame(my_game_data, signed_game_hash)
 ```
 
 > The above command returns JSON structured like this:
@@ -74,8 +75,6 @@ game_data = client.get_games()
 ```
 
 ### Query Parameters
-
- * Needed req.body: name, symbol, desc, image, owner, nonce, signedMessage
 
 Parameter | Default | Description | Example
 --------- | ------- | ----------- | -------
@@ -95,15 +94,15 @@ signedMessage | true | a | b
 
 ```ruby
 require 'stardust/wallet'
-client = Stardust::Wallet::Client.new(priv_key: private_key)
 
+client = Stardust::Wallet::Client.new(priv_key: private_key)
 game_data = client.games
 ```
 
 ```python
 from stardust.wallet.client import Client
-client = Client(private_key)
 
+client = Client(private_key)
 game_data = client.get_games()
 ```
 
@@ -147,6 +146,13 @@ game_data = client.get_games()
 
 `GET http://example.com/games/:gameId`
 
+```python
+from stardust.wallet.client import Client
+
+client = Client(private_key, game_id)
+game_data = client.get_games()
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -166,6 +172,50 @@ game_data = client.get_games()
     "cuteness": 10
   }
 ]
+```
+
+# Assets
+
+## Creating Game Assets
+
+### HTTP Request
+
+`POST http://example.com/games/:gameId/create`
+
+{name, desc, image, rarity, cap, gameAddr, nonce}
+
+### Query Parameters
+
+Parameter | Default | Description | Example
+--------- | ------- | ----------- | -------
+name | false | Name of your asset | Awooga Cat
+desc | true | Description of your asset | Cute and fluffy kitty
+image | true | Image of your game | example image
+rarity | true | How rare is the asset | ultra rare
+cap | true | How many exist? -1 if unlimited | 10
+gameAddr | true | Address of game | 0x232323
+nonce | true | a | b
+
+
+
+```python
+from stardust.wallet.client import Client
+
+client = Client(private_key, game_id)
+
+my_asset_data = {
+    'name': 'Awooga Cat'
+    'desc': 'Cute and fluffy kitty',
+    'image': '',
+    'rarity': 'ultra rate',
+    'cap': 10
+    'gameAddr': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
+    'nonce': 0
+};
+
+signed_asset_hash = client.hashAndSignAsset(my_asset_data)
+
+game_data = client.create_asset(my_asset_data, signed_asset_hash)
 ```
 
 
