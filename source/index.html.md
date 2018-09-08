@@ -63,7 +63,7 @@ my_game_data = {
 
 signed_game_hash = client.hashAndSignGame(my_game_data)
 
-create_game_response = client.createGame(my_game_data, signed_game_hash)
+create_game_response = client.create_game(my_game_data, signed_game_hash)
 ```
 
 > The above command returns JSON structured like this:
@@ -150,7 +150,7 @@ game_data = client.get_games()
 from stardust.wallet.client import Client
 
 client = Client(private_key, game_id)
-game_data = client.get_games()
+game_data = client.get_game(game_id)
 ```
 
 > The above command returns JSON structured like this:
@@ -182,22 +182,6 @@ game_data = client.get_games()
 
 `POST http://example.com/games/:gameId/create`
 
-{name, desc, image, rarity, cap, gameAddr, nonce}
-
-### Query Parameters
-
-Parameter | Default | Description | Example
---------- | ------- | ----------- | -------
-name | false | Name of your asset | Awooga Cat
-desc | true | Description of your asset | Cute and fluffy kitty
-image | true | Image of your game | example image
-rarity | true | How rare is the asset | ultra rare
-cap | true | How many exist? -1 if unlimited | 10
-gameAddr | true | Address of game | 0x232323
-nonce | true | a | b
-
-
-
 ```python
 from stardust.wallet.client import Client
 
@@ -217,6 +201,116 @@ signed_asset_hash = client.hashAndSignAsset(my_asset_data)
 
 game_data = client.create_asset(my_asset_data, signed_asset_hash)
 ```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "message": "Asset Created"
+}
+```
+
+### Query Parameters
+
+Parameter | Default | Description | Example
+--------- | ------- | ----------- | -------
+name | false | Name of your asset | Awooga Cat
+desc | true | Description of your asset | Cute and fluffy kitty
+image | true | Image of your game | example image
+rarity | true | How rare is the asset | ultra rare
+cap | true | How many exist? -1 if unlimited | 10
+gameAddr | true | Address of game | 0x232323
+nonce | true | a | b
+
+## Retrieve All Asset Data
+
+### HTTP Request
+
+`POST http://example.com/games/:gameId/assets`
+
+```python
+from stardust.wallet.client import Client
+
+client = Client(private_key, game_id) 
+
+asset_data = client.get_assets()
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "message": "Asset Created"
+}
+```
+
+## Retrieve Specific Asset Data
+
+### HTTP Request
+
+`POST http://example.com/games/:gameId/assets/:cardId`
+
+```python
+from stardust.wallet.client import Client
+
+client = Client(private_key, game_id) 
+
+asset_id = {'asset_id' : 1}
+
+asset_data = client.get_asset_data(asset_id)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "message": "Asset Created"
+}
+```
+
+
+## Trading Game Assets
+
+### HTTP Request
+
+`POST http://example.com/games/:gameId/trade`
+
+```python
+from stardust.wallet.client import Client
+
+client = Client(private_key, game_id)
+
+trade_data = {
+    'gameId': 1,
+    'assetId': 5,
+    'to','0x0',
+    'amount': 1,
+    'nonce': 0,
+};
+
+signed_trade_data = client.hashAndSignTade(trade_data)
+
+game_data = client.create_asset(trade_data, signed_trade_data)
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+   "message": "Trade successful"
+}
+```
+
+### Query Parameters
+
+Parameter | Default | Description | Example
+--------- | ------- | ----------- | -------
+gameId | false | ID of the game | 1
+assetId | true | ID of the asset | 5
+to | true | Address to send the asset to | 0x0
+amount | true | Number of assets you are sending | 1
+nonce | true | a | 0
+
 
 
 # Kittens
