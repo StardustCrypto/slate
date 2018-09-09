@@ -76,15 +76,15 @@ create_game_response = client.create_game(my_game_data, signed_game_hash)
 
 ### Query Parameters
 
-Parameter | Default | Description | Example
+Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-name | false | Name of your game | CryptoKitties
-symbol | true | Shorty symbol of your game | Kitty
-desc | true | Description of your game | Buy and sell crypto cats
-image | true | Image of your game | example image
-owner | true | Owner address | 0x2342323423223
-nonce | true | a | b
-signedMessage | true | a | b
+name | string | Name of your game | CryptoKitties
+symbol | string | Shorty symbol of your game | Kitty
+desc | string | Description of your game | Buy and sell crypto cats
+image | string | Image of your game | C:\image.png
+owner | string | Owner address | 0x0
+nonce | integer | Index of your game | 0
+signedMessage | string | Use the hashAndSignGame function | 
 
 ## Retrieve All Game Data
 
