@@ -45,11 +45,13 @@ const hashCard = (data, types) => {
 
 ### HTTP Request
 
-`POST http://example.com/games/deploy`
+`POST http://api.stardust.cards/games/deploy`
 
 ```python
 from stardust.wallet.client import Client
 
+
+private_key = 'Enter your private key here'
 client = Client(private_key)
 
 my_game_data = {
@@ -59,10 +61,9 @@ my_game_data = {
     'nonce': 0,
     'owner': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
     'symbol': 'CAT'
-};
+}
 
 signed_game_hash = client.hashAndSignGame(my_game_data)
-
 create_game_response = client.create_game(my_game_data, signed_game_hash)
 ```
 
@@ -84,13 +85,12 @@ desc | string | Description of your game | Buy and sell crypto cats
 image | string | Image of your game | C:\image.png
 owner | string | Owner address | 0x0
 nonce | integer | Index of your game | 0
-signedMessage | string | Use the hashAndSignGame function | 
 
 ## Retrieve All Game Data
 
 ### HTTP Request
 
-`GET http://example.com/games`
+`GET http://api.stardust.cards/games`
 
 ```ruby
 require 'stardust/wallet'
@@ -102,7 +102,9 @@ game_data = client.games
 ```python
 from stardust.wallet.client import Client
 
+private_key = 'Enter your private key here'
 client = Client(private_key)
+
 game_data = client.get_games()
 ```
 
@@ -144,13 +146,17 @@ game_data = client.get_games()
 
 ### HTTP Request
 
-`GET http://example.com/games/:gameId`
+`GET http://api.stardust.cards/games/:gameId`
 
 ```python
 from stardust.wallet.client import Client
 
-client = Client(private_key, game_id)
-game_data = client.get_game(game_id)
+private_key = 'Enter your private key here'
+client = Client(private_key)
+
+game_query_data = {'game_id': 5}
+
+game_data = client.get_game(game_query_data)
 ```
 
 > The above command returns JSON structured like this:
@@ -180,25 +186,26 @@ game_data = client.get_game(game_id)
 
 ### HTTP Request
 
-`POST http://example.com/games/:gameId/create`
+`POST http://api.stardust.cards/games/:gameId/create`
 
 ```python
 from stardust.wallet.client import Client
 
-client = Client(private_key, game_id)
+private_key = 'Enter your private key here'
+client = Client(private_key)
 
 my_asset_data = {
     'name': 'Awooga Cat'
     'desc': 'Cute and fluffy kitty',
     'image': '',
-    'rarity': 'ultra rate',
+    'rarity': 'ultra rare',
     'cap': 10
     'gameAddr': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
-    'nonce': 0
+    'nonce': 0,
+    'gameId': 5
 };
 
 signed_asset_hash = client.hashAndSignAsset(my_asset_data)
-
 game_data = client.create_asset(my_asset_data, signed_asset_hash)
 ```
 
@@ -212,28 +219,32 @@ game_data = client.create_asset(my_asset_data, signed_asset_hash)
 
 ### Query Parameters
 
-Parameter | Default | Description | Example
+Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-name | false | Name of your asset | Awooga Cat
-desc | true | Description of your asset | Cute and fluffy kitty
-image | true | Image of your game | example image
-rarity | true | How rare is the asset | ultra rare
-cap | true | How many exist? -1 if unlimited | 10
-gameAddr | true | Address of game | 0x232323
-nonce | true | a | b
+name | string | Name of your asset | Awooga Cat
+desc | string | Description of your asset | Cute and fluffy kitty
+image | string | Image of your game | example image
+rarity | string | How rare is the asset | ultra rare
+cap | integer | How many exist? -1 if unlimited | 10
+gameAddr | string | Address of game | 0x232323
+nonce | integer | a | b
+gameId | integer | Game ID that this asset belongs to | 5
 
 ## Retrieve All Asset Data
 
 ### HTTP Request
 
-`POST http://example.com/games/:gameId/assets`
+`POST http://api.stardust.cards/games/:gameId/assets`
 
 ```python
 from stardust.wallet.client import Client
 
-client = Client(private_key, game_id) 
+private_key = 'Enter your private key here'
+client = Client(private_key) 
 
-asset_data = client.get_assets()
+game_query_data = {'gameId': 5}
+
+asset_data = client.get_assets(game_query_data)
 ```
 
 > The above command returns JSON structured like this:
@@ -243,21 +254,30 @@ asset_data = client.get_assets()
    "message": "Asset Created"
 }
 ```
+
+### Query Parameters
+
+Parameter | Type | Description | Example
+--------- | ------- | ----------- | -------
+gameId | integer | ID of the game | 1
+
 
 ## Retrieve Specific Asset Data
 
 ### HTTP Request
 
-`POST http://example.com/games/:gameId/assets/:cardId`
+`POST http://api.stardust.cards/games/:gameId/assets/:cardId`
 
 ```python
 from stardust.wallet.client import Client
 
-client = Client(private_key, game_id) 
+private_key = 'Enter your private key here'
+client = Client(private_key) 
 
-asset_id = {'asset_id' : 1}
+asset_query_data = {'gameId' : 5,
+                    'assetId' : 1}
 
-asset_data = client.get_asset_data(asset_id)
+asset_data = client.get_asset_data(asset_query_data, asset_id)
 ```
 
 > The above command returns JSON structured like this:
@@ -267,30 +287,35 @@ asset_data = client.get_asset_data(asset_id)
    "message": "Asset Created"
 }
 ```
+
+### Query Parameters
+
+Parameter | Type | Description | Example
+--------- | ------- | ----------- | -------
+gameId | integer | ID of the game | 1
+assetId | integer | ID of the asset | 5
 
 
 ## Trading Game Assets
 
 ### HTTP Request
 
-`POST http://example.com/games/:gameId/trade`
+`POST http://api.stardust.cards/games/:gameId/trade`
 
 ```python
 from stardust.wallet.client import Client
 
-client = Client(private_key, game_id)
+private_key = 'Enter your private key here'
+client = Client(private_key)
 
-trade_data = {
-    'gameId': 1,
-    'assetId': 5,
-    'to','0x0',
-    'amount': 1,
-    'nonce': 0,
-};
+trade_data = {'gameId': 1,
+              'assetId' : 5,
+              'to': '0x123',
+              'amount': 1,
+              'nonce': 0}
 
-signed_trade_data = client.hashAndSignTade(trade_data)
-
-game_data = client.create_asset(trade_data, signed_trade_data)
+signed_asset_hash = client.hashAndSignTrade(trade_data)
+game_data = client.trade_assets(trade_data)
 ```
 
 > The above command returns JSON structured like this:
