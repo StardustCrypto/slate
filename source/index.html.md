@@ -57,7 +57,7 @@ client = Client(private_key)
 my_game_data = {
     'name': 'CryptoKitties'
     'desc': 'Trading cats on the blockchain',
-    'image': '',
+    'image': '', #soon to be IPFs hash
     'nonce': 0,
     'owner': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
     'symbol': 'CAT'
@@ -82,7 +82,7 @@ Parameter | Type | Description | Example
 name | string | Name of your game | CryptoKitties
 symbol | string | Shorty symbol of your game | Kitty
 desc | string | Description of your game | Buy and sell crypto cats
-image | string | Image of your game | C:\image.png
+image | string | Image of your game | C:\image.png (soon to be IPFS hash)
 owner | string | Owner address | 0x0
 nonce | integer | Index of your game | 0
 
@@ -118,7 +118,7 @@ game_data = client.get_games()
          "gameContractAddress":"0x...",
          "gameId":0,
          "gameOwner":"0x...",
-         "image":"image_link",
+         "image":"image_link", 
          "name":"game_name",
          "rarityNames":[
             "Common",
@@ -197,7 +197,7 @@ client = Client(private_key)
 my_asset_data = {
     'name': 'Awooga Cat'
     'desc': 'Cute and fluffy kitty',
-    'image': '',
+    'image': '', #soon to be IPFs hash
     'rarity': 'ultra rare',
     'cap': 10
     'gameAddr': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce',
@@ -223,7 +223,7 @@ Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 name | string | Name of your asset | Awooga Cat
 desc | string | Description of your asset | Cute and fluffy kitty
-image | string | Image of your game | example image
+image | string | Image of your game | IPFS image hash
 rarity | string | How rare is the asset | ultra rare
 cap | integer | How many exist? -1 if unlimited | 10
 gameAddr | string | Address of game | 0x232323
