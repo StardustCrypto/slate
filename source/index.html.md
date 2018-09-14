@@ -23,8 +23,6 @@ Welcome to the Stardust Platform! You can use our libraries to easily create ERC
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
 # Hashing
 
 ```javascript
@@ -162,22 +160,30 @@ game_data = client.get_game(game_query_data)
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{
+   "desc":"game_desc",
+   "gameContractAddress":"0x...",
+   "gameId":0,
+   "gameOwner":"0x...",
+   "image":"image_link",
+   "name":"game_name",
+   "rarityNames":[
+      "Common",
+      "Rare",
+      "Super Rare",
+      "Limited Edition",
+      "Unique"
+   ],
+   "rarityPercs":[
+      80,
+      15,
+      4,
+      0.85,
+      0.15
+   ],
+   "symbol":"game_symbol",
+   "totalSupply":"0"
+}
 ```
 
 # Assets
@@ -230,7 +236,7 @@ gameAddr | string | Address of game | 0x232323
 nonce | integer | a | b
 gameId | integer | Game ID that this asset belongs to | 5
 
-## Retrieve All Asset Data
+## Retrieve All Asset Data For a Game
 
 ### HTTP Request
 
@@ -250,9 +256,23 @@ asset_data = client.get_assets(game_query_data)
 > The above command returns JSON structured like this:
 
 ```json
-{
-   "message": "Asset Created"
-}
+
+[
+  {
+    "id": 1,
+    "name": "Snuggles",
+    "breed": "Satoshi",
+    "fluffiness": 6,
+    "cuteness": 7
+  },
+  {
+    "id": 2,
+    "name": "Barry Allen",
+    "breed": "Superhero",
+    "fluffiness": 5,
+    "cuteness": 10
+  }
+]
 ```
 
 ### Query Parameters
@@ -283,9 +303,15 @@ asset_data = client.get_asset_data(asset_query_data, asset_id)
 > The above command returns JSON structured like this:
 
 ```json
-{
-   "message": "Asset Created"
-}
+[
+  {
+    "id": 1,
+    "name": "Snuggles",
+    "breed": "Satoshi",
+    "fluffiness": 6,
+    "cuteness": 7
+  }
+]
 ```
 
 ### Query Parameters
