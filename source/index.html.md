@@ -111,10 +111,10 @@ const { createWallet, createGamePostJSON } = require('./stardust');
 const [_address, _privateKey] = createWallet();
 
 var _game = {
-  'name' : 'Twilight Punkster Online',
-  'symbol' : 'TPO',
-  'desc' : 'Punk RPG',
-  'image' : 'https://pbs.twimg.com/profile_images/1026578016258932737/RIV7fpWs_400x400.jpg',
+  'name' : 'Twilight Punkster Galaxy',
+  'symbol' : 'TPG',
+  'desc' : 'The Multiplayer Action RPG based on the Twilight Punkster comics.',
+  'image' : 'branding-logo-twpunkster.png',
   'owner' : _address,
   'nonce' : 0
 };
@@ -137,13 +137,13 @@ deployGame(_game, _privateKey);
 {
   "message": "Game was successfully deployed!",
   "gameData": {
-    "desc": "Punk RPG",
-    "image": "https://pbs.twimg.com/profile_images/1026578016258932737/RIV7fpWs_400x400.jpg",
-    "name": "Twilight Punkster Online",
+    "desc": "The Multiplayer Action RPG based on the Twilight Punkster comics.",
+    "image": "branding-logo-twpunkster.png",
+    "name": "Twilight Punkster Galaxy",
     "nonce": 0,
     "owner": "0xBe8DFe1978549b8E4C55C7FFa088Bb1233771F71",
     "signedMessage": "0xd8f786c2377d53db8db1af0d3a0075e925057243788b2e28acb4f3bf1c266c4f341119d6567fb0a47cb734f4f717c07d087165fa12570660ae7a6d58bbbb489e1c7f47c1d3b84191d9c1dcc643af9836b9d17006a1962d5ae7bcb9682b2e9d8dd4",
-    "symbol": "TPO"
+    "symbol": "TPG"
   },
   "gameAddr": "0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95"
 }
