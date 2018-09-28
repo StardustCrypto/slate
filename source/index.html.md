@@ -23,13 +23,9 @@ Welcome to the Stardust Platform! You can use our libraries to easily create ERC
 
 We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-Download the Javascript Library from 
-
-https://www.dropbox.com/s/jww6x2tfx9u1iuq/stardust.js
-
 # Libraries
 
-Please download the associated module for your language on the right! A
+[Download the Javascript library from here](https://www.dropbox.com/s/jww6x2tfx9u1iuq/stardust.js?dl=0)
 
 # Creating a Wallet
 
