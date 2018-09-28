@@ -195,6 +195,13 @@ transferGameOwnership(gameAddr, _transferData);
 }
 ```
 
+### Query Parameters
+
+Parameter | Type | Description | Example
+--------- | ------- | ----------- | -------
+gameAddr | string | Game address | 0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95
+owner | string | Game owner (address) | 0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66FB 
+
 ## Retrieve All Game Data
 
 ### HTTP Request
