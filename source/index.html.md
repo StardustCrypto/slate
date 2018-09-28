@@ -156,9 +156,9 @@ Parameter | Type | Description | Example
 name | string | Game title | Twilight Punkster Online
 symbol | string | Game symbol | TPO
 desc | string | Game description | Punk RPG
-image | string | Game image | C:\image.png (soon to be IPFS hash)
+image | string | Game image | URL to image file
 owner | string | Game owner (address) | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce 
-nonce | integer | The current number of transactions you have signed | 0
+nonce | number | The current number of transactions you have signed | 0
 
 ## Transfer Game Ownership
 
@@ -417,11 +417,11 @@ Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 name | string | Asset name | Awooga Cat
 desc | string | Asset description | Cute and fluffy kitty
-image | string | Asset image | IPFS image string
+image | string | Asset image | URL to image file
 rarity | number | Asset rarity | 0
-cap | integer | How many can exist, 0 if unlimited | 10
+cap | number | How many can exist, 0 if unlimited | 10
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-nonce | integer | The current number of transactions you have signed | 12
+nonce | number | The current number of transactions you have signed | 12
 
 ## Retrieve All Asset Data For a Game
 
@@ -542,7 +542,7 @@ getSpecificAsset(gameAddr, assetId);
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-assetId | integer | Asset ID | 5
+assetId | number | Asset ID | 5
 
 
 ## Retrieve Assets Of User
@@ -638,10 +638,10 @@ mintAsset(_asset, gameAddr, assetId, _privateKey);
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-assetId | integer | Asset ID | 5
+assetId | number | Asset ID | 5
 to | string | Receiver address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-amount | integer | Number of assets you are sending | 1
-nonce | integer | The current number of transactions you have signed | 12
+amount | number | Number of assets you are sending | 1
+nonce | number | The current number of transactions you have signed | 12
 
 
 ## Trading Game Assets
@@ -714,8 +714,7 @@ tradeAsset(_tradeData, gameAddr, _privateKey);
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-assetId | integer | Asset ID | 5
+assetId | number | Asset ID | 5
 to | string | Receiving address | 0xc75709080E584E6ba396FFe8ED7433f495339bA2
-amount | integer | Number of assets you are sending | 1
-nonce | integer | The current number of transactions you have signed | 12
-
+amount | number | Number of assets you are sending | 1
+nonce | number | The current number of transactions you have signed | 12
