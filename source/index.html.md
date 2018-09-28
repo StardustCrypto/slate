@@ -29,10 +29,11 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 # Creating a Wallet
 
+Create and store the wallet, it will be used for all actions.
+
 ```javascript
 const { createWallet } = require('./stardust');
-
-let [_address, _privateKey] = createWallet();
+const [_address, _privateKey] = createWallet();
 ```
 
 # Get Balance Of Address
@@ -157,7 +158,7 @@ symbol | string | Game symbol | TPO
 desc | string | Game description | Punk RPG
 image | string | Game image | C:\image.png (soon to be IPFS hash)
 owner | string | Game owner (address) | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce 
-nonce | integer | Index of your game | 0
+nonce | integer | The current number of transactions you have signed | 0
 
 ## Transfer Game Ownership
 
@@ -409,11 +410,11 @@ Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 name | string | Asset name | Awooga Cat
 desc | string | Asset description | Cute and fluffy kitty
-image | string | Asset image | IPFS image hash
-rarity | string | Asset rarity | ultra rare
-cap | integer | How many exist? -1 if unlimited | 10
+image | string | Asset image | IPFS image string
+rarity | number | Asset rarity | 0
+cap | integer | How many can exist, 0 if unlimited | 10
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-nonce | integer | a | b
+nonce | integer | The current number of transactions you have signed | 12
 
 ## Retrieve All Asset Data For a Game
 
@@ -571,10 +572,10 @@ getAssetsOf(gameAddr, userAddr);
 
 ### Query Parameters
 
-Parameter | Default | Description | Example
+Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-gameAddr | true | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-userAddr | true | User address | 0x34E4be70A6763FddF14CBcF21f4e4902480638D2
+gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
+userAddr | string | User address | 0x34E4be70A6763FddF14CBcF21f4e4902480638D2
 
 ## Minting Game Assets
 
@@ -627,13 +628,13 @@ mintAsset(_asset, gameAddr, assetId, _privateKey);
 
 ### Query Parameters
 
-Parameter | Default | Description | Example
+Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-gameAddr | true | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-assetId | true | Asset ID | 5
-to | true | Receiver address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
-amount | true | Number of assets you are sending | 1
-nonce | true | a | 0
+gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
+assetId | integer | Asset ID | 5
+to | string | Receiver address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
+amount | integer | Number of assets you are sending | 1
+nonce | integer | The current number of transactions you have signed | 12
 
 
 ## Trading Game Assets
@@ -703,11 +704,11 @@ tradeAsset(_tradeData, gameAddr, _privateKey);
 
 ### Query Parameters
 
-Parameter | Default | Description | Example
+Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-gameAddr | true | Game address | 1
-assetId | true | Asset ID | 5
-to | true | Address to send the asset to | 0xc75709080E584E6ba396FFe8ED7433f495339bA2
-amount | true | Number of assets you are sending | 1
-nonce | true | a | 0
+gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
+assetId | integer | Asset ID | 5
+to | string | Receiving address | 0xc75709080E584E6ba396FFe8ED7433f495339bA2
+amount | integer | Number of assets you are sending | 1
+nonce | integer | The current number of transactions you have signed | 12
 
