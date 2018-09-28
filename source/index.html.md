@@ -460,30 +460,53 @@ getGameAssets(gameAddr);
 > The above command returns JSON structured like this:
 
 ```json
-
-[
-  {
-    "id": 1,
-    "name": "Snuggles",
-    "breed": "Satoshi",
-    "fluffiness": 6,
-    "cuteness": 7
+{
+  "assets": [
+    {
+      "assetId": 0,
+      "cap": "0",
+      "desc": "Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.",
+      "gameAddr": "0x60dBAd46F93CF19CF8412f12454099bA088307f6",
+      "image": "twitem-278.png",
+      "name": "Furious Knuckles",
+      "owners": [
+        "0xCbacba158d237011Ca30088C5C49576D5317FdeB"
+      ],
+      "rarity": "1",
+      "totalSupply": "1",
+      "val": "66"
   },
   {
-    "id": 2,
-    "name": "Barry Allen",
-    "breed": "Superhero",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+      "assetId": 1,
+      "cap": "0",
+      "desc": "Ranged weapon with 24-30 damage. Medium durability, heavy and a slow rate of recharge.",
+      "gameAddr": "0x60dBAd46F93CF19CF8412f12454099bA088307f6",
+      "image": "twitem-463.png",
+      "name": "Gentech Super Buster X",
+      "owners": [],
+      "rarity": "3",
+      "totalSupply": "0",
+      "val": "123"
+    }
+  ],
+  "message": "All created assets"
+}
 ```
 
 ### Query Parameters
 
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
+assetId   | number  | Asset ID    | 1
+cap       | number  | How many can exist, 0 if unlimited | 0
+desc      | string  | Asset description | Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.
+gameAddr  | string  | Asset address | 0x60dBAd46F93CF19CF8412f12454099bA088307f6
+image     | string  | URL to image file  | 
+name      | string  | Asset name  | Furious Knuckles
+owners    | string array  | Asset owners | ["0xCbacba158d237011Ca30088C5C49576D5317FdeB"]
+rarity    | number  | Asset rarity | 3 (0-5)
+totalSupply | number  | Number of existing copies  | 1
+val       | number  | Asset value | 66
 
 
 ## Retrieve Specific Asset Data
@@ -526,15 +549,21 @@ getSpecificAsset(gameAddr, assetId);
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Snuggles",
-    "breed": "Satoshi",
-    "fluffiness": 6,
-    "cuteness": 7
-  }
-]
+{
+  "asset": {
+    "assetId": "1",
+    "cap": "0",
+    "desc": "Ranged weapon with 24-30 damage. Medium durability, heavy and a slow rate of recharge.",
+    "gameAddr": "0x60dBAd46F93CF19CF8412f12454099bA088307f6",
+    "image": "twitem-463.png",
+    "name": "Gentech Super Buster X",
+    "owners": [],
+    "rarity": "3",
+    "totalSupply": "0",
+    "val": "123"
+  },
+  "message": "Specific Asset details"
+}
 ```
 
 ### Query Parameters
