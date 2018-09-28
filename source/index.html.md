@@ -48,8 +48,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getBalanceOf = async (gameAddr, userAddr) => {
   try {
-    let result = await axios.get(`/${gameAddr}/balance/${userAddr}`);
-    console.log(result.data);
+    const query = await axios.get(`/${gameAddr}/balance/${userAddr}`);
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -121,8 +121,8 @@ var _game = {
 
 const deployGame = async (game, privateKey) => {
   try {
-    let result = await axios.post('/', createGamePostJSON(game, privateKey));
-    console.log(result.data);
+    const query = await axios.post('/', createGamePostJSON(game, privateKey));
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -172,8 +172,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const transferGameOwnership = async (gameAddr, transferData) => {
   try {
-    let result = await axios.post(`/${gameAddr}/transfer`, transferData);
-    console.log(result.data);
+    const query = await axios.post(`/${gameAddr}/transfer`, transferData);
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -230,8 +230,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getGames = async () => {
   try {
-    let result = await axios.get('/');
-    console.log(result.data);
+    const query = await axios.get('/');
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -296,8 +296,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getGame = async (gameAddr) => {
   try {
-    let result = await axios.get(`/${gameAddr}`);
-    console.log(result.data);
+    const query = await axios.get(`/${gameAddr}`);
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -379,8 +379,8 @@ const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)
 
 const createAsset = async (asset, gameAddr, privateKey) => {
   try {
-    let result = await axios.post(`/${gameAddr}/assets`, createAssetPostJSON(asset, privateKey));
-    console.log(result.data);
+    const query = await axios.post(`/${gameAddr}/assets`, createAssetPostJSON(asset, privateKey));
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -446,8 +446,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getGameAssets = async (gameAddr) => {
   try {
-    let result = await axios.get(`/${gameAddr}/assets`);
-    console.log(result.data);
+    const query = await axios.get(`/${gameAddr}/assets`);
+    return query.data;
   } catch (e) {
     console.log(e)
   }
@@ -510,8 +510,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getSpecificAsset = async (gameAddr, assetId) => {
   try {
-    let result = await axios.get(`/${gameAddr}/assets/${assetId}`);
-    console.log(result.data);
+    const query = await axios.get(`/${gameAddr}/assets/${assetId}`);
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -555,8 +555,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getAssetsOf = async (gameAddr, userAddr) => {
   try {
-    let result = await axios.get(`/${gameAddr}/assetsOf/${userAddr}`);
-    console.log(result.data);
+    const query = await axios.get(`/${gameAddr}/assetsOf/${userAddr}`);
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -599,8 +599,8 @@ const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)
 
 const mintAsset = async (asset, gameAddr, assetId, privateKey) => {
   try {
-    let result = await axios.post(`/${gameAddr}/assets/${assetId}/mint`, createAssetMintPostJSON(asset, privateKey));
-    console.log(result.data);
+    const query = await axios.post(`/${gameAddr}/assets/${assetId}/mint`, createAssetMintPostJSON(asset, privateKey));
+    return query.data;
   } catch (e) {
     console.log(e);
   }
@@ -677,8 +677,8 @@ const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)
 
 const tradeAsset = async (tradeData, gameAddr, privateKey) => {
   try {
-    let result = await axios.post(`/${gameAddr}/assets/${assetId}/trade`, createAssetTradePostJSON(tradeData, privateKey));
-    console.log(result.data);
+    const query = await axios.post(`/${gameAddr}/assets/${assetId}/trade`, createAssetTradePostJSON(tradeData, privateKey));
+    return query.data;
   } catch (e) {
     console.log(e);
   }
