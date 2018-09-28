@@ -29,52 +29,12 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 # Creating a Wallet
 
-Create and store the wallet, it will be used for all actions.
+Create and store th§e wallet, it will be used for all actions.
 
 ```javascript
 const { createWallet } = require('./stardust');
 const [_address, _privateKey] = createWallet();
 ```
-
-# Get Balance Of Address
-
-### HTTP Request
-
-`GET http://api.stardust.cards/games/:gameAddr/balance/:userAddr`
-
-```javascript
-const axios = require('axios');
-axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
-
-const getBalanceOf = async (gameAddr, userAddr) => {
-  try {
-    const query = await axios.get(`/${gameAddr}/balance/${userAddr}`);
-    return query.data;
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
-let userAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
-
-getBalanceOf(gameAddr, userAddr);
-```
-> The above command returns JSON structured like this:
-
-```json
-{
-  "message": "Balance of address 0xC96AaF7Ac9eF529eB7B6118814b2951B53c4b2C4",
-  "balance": "0"
-}
-```
-
-### Query Parameters
-
-Parameter | Type | Description | Example
---------- | ------- | ----------- | -------
-gameAddr | string | Game address | 0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95
-userAddr | string | User address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
 
 # Game
 
@@ -200,7 +160,47 @@ transferGameOwnership(gameAddr, _transferData);
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 gameAddr | string | Game address | 0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95
-owner | string | Game owner (address) | 0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66FB 
+owner | string | Game owner (address) | 0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66FB
+
+## Get Balance Of Address
+
+### HTTP Request
+
+`GET http://api.stardust.cards/games/:gameAddr/balance/:userAddr`
+
+```javascript
+const axios = require('axios');
+axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
+
+const getBalanceOf = async (gameAddr, userAddr) => {
+  try {
+    const query = await axios.get(`/${gameAddr}/balance/${userAddr}`);
+    return query.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
+let userAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
+
+getBalanceOf(gameAddr, userAddr);
+```
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "Balance of address 0xC96AaF7Ac9eF529eB7B6118814b2951B53c4b2C4",
+  "balance": "0"
+}
+```
+
+### Query Parameters
+
+Parameter | Type | Description | Example
+--------- | ------- | ----------- | -------
+gameAddr | string | Game address | 0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95
+userAddr | string | User address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
 
 ## Retrieve All Game Data
 
