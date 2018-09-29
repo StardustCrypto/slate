@@ -119,12 +119,12 @@ testDeploy();
 
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-name | string | Game title | Twilight Punkster Online
-symbol | string | Game symbol | TPO
-desc | string | Game description | Punk RPG
+name | string | Game title | Twilight Punkster Galaxy
+symbol | string | Game symbol | TPG
+desc | string | Game description | The Multiplayer Action RPG based on the Twilight Punkster comics.
 image | string | Game image | URL to image file
-owner | string | Game owner (address) | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce 
-nonce | number | The current number of transactions you have signed | 0
+owner | string | Game owner (address) | 0xBe8DFe1978549b8E4C55C7FFa088Bb1233771F71 
+nonce | number | The current number of transactions you have signed | 12
 
 ## Transfer Game Ownership
 
@@ -170,7 +170,7 @@ testTransferGameOwnership();
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
 gameAddr | string | Game address | 0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95
-owner | string | Game owner (address) | 0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66FB
+owner | string | Game owner (address) | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
 
 ## Get Balance Of Address
 
@@ -412,12 +412,12 @@ const createAsset = async (asset, gameAddr, privateKey) => {
 let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
 
 const assetMaker = async(gameAddr, address) => ({
-  'name': 'AwoogaMonster',
-  'desc': 'Killer AwoogaMonster',
-  'image': 'AwoogaMonster.jpg',
+  'name': 'Furious Knuckles',
+  'desc': 'Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.',
+  'image': 'twitem-278.png',
   'rarity': 1,
   'cap': 0,
-  'val': 500,
+  'val': 66,
   gameAddr,
   'nonce': await getNonce(address),
 });
@@ -443,11 +443,11 @@ testCreateAsset();
 
 Parameter | Type | Description | Example
 --------- | ------- | ----------- | -------
-name | string | Asset name | Awooga Cat
-desc | string | Asset description | Cute and fluffy kitty
+name | string | Asset name | Furious Knuckles
+desc | string | Asset description | Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.
 image | string | Asset image | URL to image file
-rarity | number | Asset rarity | 0
-cap | number | How many can exist, 0 if unlimited | 10
+rarity | number | Asset rarity | 1
+cap | number | How many can exist, 0 if unlimited | 0
 gameAddr | string | Game address | 0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce
 nonce | number | The current number of transactions you have signed | 12
 
