@@ -34,6 +34,8 @@ Create and store th§e wallet, it will be used for all actions.
 ```javascript
 const { createWallet } = require('./stardust');
 const [_address, _privateKey] = createWallet();
+
+console.log('Wallet address: ', _address);
 ```
 
 # Game
@@ -88,7 +90,11 @@ const deployGame = async (game, privateKey) => {
   }
 }
 
-deployGame(_game, _privateKey);
+const testDeploy = async () => {
+  await deployGame(_game, _privateKey);
+}
+
+testDeploy();
 ```
 
 > The above command returns JSON structured like this:
@@ -145,13 +151,17 @@ let _transferData = {
   'owner': '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce'
 }
 
-transferGameOwnership(gameAddr, _transferData);
+const testTransferGameOwnership = async () => {
+  await transferGameOwnership(gameAddr, _transferData);
+}
+
+testTransferGameOwnership();
 ```
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "owner": "0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66FB"
+  "owner": "0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce"
 }
 ```
 
@@ -172,9 +182,9 @@ owner | string | Game owner (address) | 0x1ec343a6eA64A3a651884a3E8ccBD45bF80A66
 const axios = require('axios');
 axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
-const getBalanceOf = async (gameAddr, userAddr) => {
+const getBalanceOf = async (_gameAddr, _userAddr) => {
   try {
-    const query = await axios.get(`/${gameAddr}/balance/${userAddr}`);
+    const query = await axios.get(`/${_gameAddr}/balance/${_userAddr}`);
     return query.data;
   } catch (e) {
     console.log(e);
@@ -184,7 +194,11 @@ const getBalanceOf = async (gameAddr, userAddr) => {
 let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
 let userAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
 
-getBalanceOf(gameAddr, userAddr);
+const testGetBalanceOf = async () => {
+  await getBalanceOf(gameAddr, userAddr);
+}
+
+testGetBalanceOf();
 ```
 > The above command returns JSON structured like this:
 
@@ -237,7 +251,11 @@ const getGames = async () => {
   }
 }
 
-getGames();
+const testGetGames = async () => {
+  await getGames();
+}
+
+testGetGames();
 ```
 > The above command returns JSON structured like this:
 
@@ -294,17 +312,22 @@ const axios = require('axios');
 
 axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
-const getGame = async (gameAddr) => {
+const getGame = async (_gameAddr) => {
   try {
-    const query = await axios.get(`/${gameAddr}`);
+    const query = await axios.get(`/${_gameAddr}`);
     return query.data;
   } catch (e) {
     console.log(e);
   }
 }
 
-let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
-getGame(gameAddr);
+let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
+
+const testGetGame = async () => {
+  await getGame(gameAddr);
+}
+
+testGetGame();
 ```
 
 
@@ -386,20 +409,25 @@ const createAsset = async (asset, gameAddr, privateKey) => {
   }
 }
 
-let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
+let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
 
-const _asset = {
+const assetMaker = async(gameAddr, address) => ({
   'name': 'AwoogaMonster',
   'desc': 'Killer AwoogaMonster',
   'image': 'AwoogaMonster.jpg',
   'rarity': 1,
   'cap': 0,
-  'value': 500
-  'gameAddr': gameAddr,
-  'nonce': getNonce(_address),
-};
+  'val': 500,
+  gameAddr,
+  'nonce': await getNonce(address),
+});
 
-createAsset(_asset, gameAddr, _privateKey);
+const testCreateAsset = async () => {
+  const _asset = await assetMaker(gameAddr, _address);
+  await createAsset(_asset, gameAddr, _privateKey);
+}
+
+testCreateAsset();
 ```
 
 > The above command returns JSON structured like this:
@@ -454,7 +482,12 @@ const getGameAssets = async (gameAddr) => {
 }
 
 let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
-getGameAssets(gameAddr);
+
+const testGetGameAssets = async () => {
+  await getGameAssets(gameAddr);
+}
+
+testGetGameAssets();
 ```
 
 > The above command returns JSON structured like this:
@@ -540,10 +573,14 @@ const getSpecificAsset = async (gameAddr, assetId) => {
   }
 }
 
-let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
+let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
 let assetId = 1;
 
-getSpecificAsset(gameAddr, assetId);
+const testGetSpecificAsset = async () => {
+  await getSpecificAsset(gameAddr, assetId);
+}
+
+testGetSpecificAsset();
 ```
 
 > The above command returns JSON structured like this:
@@ -591,10 +628,13 @@ const getAssetsOf = async (gameAddr, userAddr) => {
   }
 }
 
-let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
-let userAddr = '0x34E4be70A6763FddF14CBcF21f4e4902480638D2';
+let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
 
-getAssetsOf(gameAddr, userAddr);
+const testGetAssetsOf = async () => {
+  await getAssetsOf(gameAddr, _address);
+}
+
+testGetAssetsOf();
 ```
 > The above command returns JSON structured like this:
 
@@ -635,19 +675,24 @@ const mintAsset = async (asset, gameAddr, assetId, privateKey) => {
   }
 }
 
-let gameAddr = '0x0...';
-let assetId = 1;
+let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
+let assetId = 0;
 
-let _asset = {
-  'gameAddr': gameAddr,
-  'assetId': assetId,
-  'owner': _address,
-  'nonce': getNonce(_address),
-  'to': '0x34E4be70A6763FddF14CBcF21f4e4902480638D2',
-  'amount': 1
+const assetMintMaker = async(gameAddr, assetId, userAddr) => ({
+  gameAddr,
+  assetId,
+  'owner': userAddr,
+  'nonce': await getNonce(userAddr),
+  'to': userAddr,
+  'amount': 10
+});
+
+const testMintAsset = async () => {
+  const assetMint = await assetMintMaker(gameAddr, assetId, _address);
+  await mintAsset(assetMint, gameAddr, assetId, _privateKey);
 }
 
-mintAsset(_asset, gameAddr, assetId, _privateKey);
+testMintAsset();
 ```
 > The above command returns JSON structured like this:
 
@@ -714,16 +759,21 @@ const tradeAsset = async (tradeData, gameAddr, privateKey) => {
 }
 
 let assetId = 0;
-let gameAddr = '0xbA418a52A50c7169dbf7296D64B45a82DFa093Ce';
+let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
 
-let _tradeData = {
+const tradeDataMaker = async(assetId, userAddr) => ({
   assetId,
   'to': '0xc75709080E584E6ba396FFe8ED7433f495339bA2',
   'amount': 1,
-  'nonce': getNonce(_address)
+  'nonce': await getNonce(userAddr)
+});
+
+const testTradeAsset = async () => {
+  const assetTradeData = await tradeDataMaker(assetId, _address);
+  await tradeAsset(assetTradeData, gameAddr, _privateKey);
 }
 
-tradeAsset(_tradeData, gameAddr, _privateKey);
+testTradeAsset();
 ```
 
 > The above command returns JSON structured like this:
