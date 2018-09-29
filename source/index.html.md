@@ -29,7 +29,7 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 # Creating a Wallet
 
-Create and store th§e wallet, it will be used for all actions.
+Create and store the wallet, it will be used for all actions.
 
 ```javascript
 const { createWallet } = require('./stardust');
@@ -71,6 +71,8 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const { createWallet, createGamePostJSON } = require('./stardust');
 const [_address, _privateKey] = createWallet();
+
+const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)).data.nonce);
 
 const gameDataMaker = async (gameAddr, address) => ({
   'name' : 'Twilight Punkster Galaxy',
