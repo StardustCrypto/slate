@@ -83,9 +83,9 @@ const gameDataMaker = async (address) => ({
   'nonce' : await getNonce(address)
 });
 
-const deployGame = async (game, privateKey) => {
+const deployGame = async (gameData, privateKey) => {
   try {
-    const query = await axios.post('/', createGamePostJSON(game, privateKey));
+    const query = await axios.post('/', createGamePostJSON(gameData, privateKey));
     return query.data;
   } catch (e) {
     console.log(e);
@@ -93,8 +93,8 @@ const deployGame = async (game, privateKey) => {
 }
 
 const testDeployGame = async () => {
-  const _game = await gameDataMaker(_address);
-  await deployGame(_game, _privateKey);
+  const gameData = await gameDataMaker(_address);
+  await deployGame(gameData, _privateKey);
 }
 
 testDeployGame();
@@ -414,9 +414,9 @@ const assetDataMaker = async(gameAddr, address) => ({
   'nonce': await getNonce(address),
 });
 
-const createAsset = async (asset, gameAddr, privateKey) => {
+const createAsset = async (gameAddr, assetData, privateKey) => {
   try {
-    const query = await axios.post(`/${gameAddr}/assets`, createAssetPostJSON(asset, privateKey));
+    const query = await axios.post(`/${gameAddr}/assets`, createAssetPostJSON(assetData, privateKey));
     return query.data;
   } catch (e) {
     console.log(e);
@@ -426,8 +426,8 @@ const createAsset = async (asset, gameAddr, privateKey) => {
 let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
 
 const testCreateAsset = async () => {
-  const _asset = await assetDataMaker(gameAddr, _address);
-  await createAsset(_asset, gameAddr, _privateKey);
+  const assetData = await assetDataMaker(gameAddr, _address);
+  await createAsset(gameAddr, assetData, _privateKey);
 }
 
 testCreateAsset();
@@ -669,18 +669,18 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)).data.nonce);
 
-const assetMintDataMaker = async(gameAddr, assetId, userAddr) => ({
+const assetMintDataMaker = async(gameAddr, assetId, userAddr, address) => ({
   gameAddr,
   assetId,
-  'owner': _address,
-  'nonce': await getNonce(_address),
+  'owner': address,
+  'nonce': await getNonce(address),
   'to': userAddr,
   'amount': 10
 });
 
-const mintAsset = async (asset, gameAddr, assetId, privateKey) => {
+const mintAsset = async (gameAddr, assetId, assetData, privateKey) => {
   try {
-    const query = await axios.post(`/${gameAddr}/assets/${assetId}/mint`, createAssetMintPostJSON(asset, privateKey));
+    const query = await axios.post(`/${gameAddr}/assets/${assetId}/mint`, createAssetMintPostJSON(assetData, privateKey));
     return query.data;
   } catch (e) {
     console.log(e);
@@ -692,8 +692,8 @@ let userAddr = '0x34E4be70A6763FddF14CBcF21f4e4902480638D2';
 let assetId = 0;
 
 const testMintAsset = async () => {
-  const _asset = await assetMintDataMaker(gameAddr, assetId, userAddr);
-  await mintAsset(_asset, gameAddr, assetId, _privateKey);
+  const assetData = await assetMintDataMaker(gameAddr, assetId, userAddr, _address);
+  await mintAsset(gameAddr, assetId, assetData, _privateKey);
 }
 
 testMintAsset();
@@ -753,7 +753,14 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)).data.nonce);
 
-const tradeAsset = async (tradeData, gameAddr, privateKey) => {
+const tradeDataMaker = async(assetId, to, address) => ({
+  assetId,
+  to,
+  'amount': 1,
+  'nonce': await getNonce(address)
+});
+
+const tradeAsset = async (gameAddr, assetId, tradeData, privateKey) => {
   try {
     const query = await axios.post(`/${gameAddr}/assets/${assetId}/trade`, createAssetTradePostJSON(tradeData, privateKey));
     return query.data;
@@ -766,16 +773,9 @@ let assetId = 0;
 let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
 let to = '0xc75709080E584E6ba396FFe8ED7433f495339bA2';
 
-const tradeDataMaker = async(assetId, to, address) => ({
-  assetId,
-  'to': to,
-  'amount': 1,
-  'nonce': await getNonce(address)
-});
-
 const testTradeAsset = async () => {
-  const _tradeData = await tradeDataMaker(assetId, to, _address);
-  await tradeAsset(_tradeData, gameAddr, _privateKey);
+  const tradeData = await tradeDataMaker(assetId, to, _address);
+  await tradeAsset(gameAddr, assetId, tradeData, _privateKey);
 }
 
 testTradeAsset();
