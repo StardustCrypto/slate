@@ -25,7 +25,7 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 # Libraries
 
-[Download the Javascript library from here](https://www.dropbox.com/s/jww6x2tfx9u1iuq/stardust.js?dl=0)
+[Download the JavaScript library from here](https://www.dropbox.com/s/jww6x2tfx9u1iuq/stardust.js?dl=0)
 
 # Creating a Wallet
 
@@ -72,14 +72,14 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 const { createWallet, createGamePostJSON } = require('./stardust');
 const [_address, _privateKey] = createWallet();
 
-var _game = {
+const gameDataMaker = async (gameAddr, address) => ({
   'name' : 'Twilight Punkster Galaxy',
   'symbol' : 'TPG',
   'desc' : 'The Multiplayer Action RPG based on the Twilight Punkster comics.',
   'image' : 'branding-logo-twpunkster.png',
-  'owner' : _address,
-  'nonce' : 0
-};
+  'owner' : address,
+  'nonce' : await getNonce(address)
+});
 
 const deployGame = async (game, privateKey) => {
   try {
@@ -90,11 +90,12 @@ const deployGame = async (game, privateKey) => {
   }
 }
 
-const testDeploy = async () => {
+const testDeployGame = async () => {
+  const _game = await gameDataMaker(_address);
   await deployGame(_game, _privateKey);
 }
 
-testDeploy();
+testDeployGame();
 ```
 
 > The above command returns JSON structured like this:
@@ -400,6 +401,17 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)).data.nonce);
 
+const assetDataMaker = async(gameAddr, address) => ({
+  'name': 'Furious Knuckles',
+  'desc': 'Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.',
+  'image': 'twitem-278.png',
+  'rarity': 1,
+  'cap': 0,
+  'val': 66,
+  gameAddr,
+  'nonce': await getNonce(address),
+});
+
 const createAsset = async (asset, gameAddr, privateKey) => {
   try {
     const query = await axios.post(`/${gameAddr}/assets`, createAssetPostJSON(asset, privateKey));
@@ -411,19 +423,8 @@ const createAsset = async (asset, gameAddr, privateKey) => {
 
 let gameAddr = '0xa509a89479B08F734Bd4bD16A762eDcE7Ba44D95';
 
-const assetMaker = async(gameAddr, address) => ({
-  'name': 'Furious Knuckles',
-  'desc': 'Melee weapon with 6-8 damage. Low durability, yet lightweight and cheap.',
-  'image': 'twitem-278.png',
-  'rarity': 1,
-  'cap': 0,
-  'val': 66,
-  gameAddr,
-  'nonce': await getNonce(address),
-});
-
 const testCreateAsset = async () => {
-  const _asset = await assetMaker(gameAddr, _address);
+  const _asset = await assetDataMaker(gameAddr, _address);
   await createAsset(_asset, gameAddr, _privateKey);
 }
 
@@ -666,6 +667,15 @@ axios.defaults.baseURL = 'http://104.248.225.156:3000/games';
 
 const getNonce = async (address) => Number((await axios.get(`/nonce/${address}`)).data.nonce);
 
+const assetMintDataMaker = async(gameAddr, assetId, userAddr) => ({
+  gameAddr,
+  assetId,
+  'owner': userAddr,
+  'nonce': await getNonce(userAddr),
+  'to': userAddr,
+  'amount': 10
+});
+
 const mintAsset = async (asset, gameAddr, assetId, privateKey) => {
   try {
     const query = await axios.post(`/${gameAddr}/assets/${assetId}/mint`, createAssetMintPostJSON(asset, privateKey));
@@ -678,17 +688,8 @@ const mintAsset = async (asset, gameAddr, assetId, privateKey) => {
 let gameAddr = '0x60dBAd46F93CF19CF8412f12454099bA088307f6';
 let assetId = 0;
 
-const assetMintMaker = async(gameAddr, assetId, userAddr) => ({
-  gameAddr,
-  assetId,
-  'owner': userAddr,
-  'nonce': await getNonce(userAddr),
-  'to': userAddr,
-  'amount': 10
-});
-
 const testMintAsset = async () => {
-  const assetMint = await assetMintMaker(gameAddr, assetId, _address);
+  const assetMint = await assetMintDataMaker(gameAddr, assetId, _address);
   await mintAsset(assetMint, gameAddr, assetId, _privateKey);
 }
 
